@@ -1,0 +1,23 @@
+.content input {
+  margin: auto 5px;
+  height: 35px;
+  width: 8em;
+  line-height: 100%;
+  background-color: #24ACF2;
+  font-size: 1.25rem;
+  font-family: "Berlin Sans FB", serif;
+}
+
+.content {
+  background: #222222;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#portText{
+    color: #222222;
+    background-color: #1ED760;
+}
+

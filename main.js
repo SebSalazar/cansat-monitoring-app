@@ -25,14 +25,14 @@ app.get("*", (req, res) => {
   res.sendFile(__dirname + "/public/404.html");
 });
 
-app.listen(puerto,"0.0.0.0", () => {
-  console.log("Servidor app esta escuchando");
-});
+// app.listen(puerto, () => {
+//   console.log("Servidor app esta escuchando");
+// });
 // --- Cierra parte del frontend ---
 
-// server.listen(puertoServer,"0.0.0.0", () => {
-//   console.log("Servidor server esta escuchando");
-// });
+server.listen(puertoServer,"0.0.0.0", () => {
+  console.log("Servidor server esta escuchando");
+});
 
 const parseData = (client, clientId, msg) => {
   console.log(msg);

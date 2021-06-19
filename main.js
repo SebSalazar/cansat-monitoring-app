@@ -6,8 +6,8 @@ const express = require("express");
 const app = express();
 const log = require("./helpers/csvlog");
 const port = require("./helpers/communication");
-const puerto = process.env.PUERTO || 8082;
-const puertoServer = process.env.PUERTO_SERVER || 3001;
+const puerto = process.env.PUERTO || 8081;
+const puertoServer = process.env.PUERTO_SERVER || 3000;
 
 const server = HTTP.createServer((req, res) => {
   let reqpath = req.url;

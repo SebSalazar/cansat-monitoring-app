@@ -7,6 +7,7 @@ const app = express();
 const log = require("./helpers/csvlog");
 const port = require("./helpers/communication");
 const puerto = process.env.PUERTO;
+const puertoServer = process.env.PUERTO_SERVER;
 
 const server = HTTP.createServer((req, res) => {
   let reqpath = req.url;
@@ -27,7 +28,7 @@ app.get("*", (req, res) => {
 app.listen(puerto);
 // --- Cierra parte del frontend ---
 
-server.listen(3000, (params) => {
+server.listen(puertoServer, (params) => {
   console.log("listening");
   //console.log(params);
 });

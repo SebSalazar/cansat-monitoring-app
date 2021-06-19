@@ -1,14 +1,15 @@
 const serialPort = require("serialport");
-const fs = require("fs");
 const readline = require("readline");
+const fs = require("fs");
 
 const log = require("./csvlog");
 
 let portList = [];
+let dataArray = [];
+let dataArrayAux = [];
 let inUsePort;
 let dummyMode = true;
 const dataPath = "./data/data_simulacion.csv";
-let dataArray = [];
 
 serialPort.list().then((ports) => {
   ports.forEach((port) => {
@@ -27,6 +28,7 @@ const leerData = async () => {
     console.log("...Leyendo la data...");
     read.on("line", (line) => {
       dataArray.push(line.split(";"));
+      dataArrayAux.push(line.split(";"));
     });
   }
 };
@@ -65,6 +67,7 @@ module.exports = {
     console.log("Simulacion:\n", dummyMode);
     //console.log(dataArray);
     if (dummyMode) {
+      if(dataArray.length === 0 || dataArray.length === undefined) dataArray = dataArrayAux;
       return dataArray.shift();
     } else {
       console.log("Puerto en uso, modo hardware");

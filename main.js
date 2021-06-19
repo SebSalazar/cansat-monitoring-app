@@ -30,8 +30,7 @@ app.listen(puerto, () => {
 });
 
 app.listen(process.env.PUERTO_SERVER || 3000, '0.0.0.0' || '::', err => {
-  if (err) throw err
-  console.log(`server listening on ${app.server.address().port}`)
+  console.log("Server escuchando");
 })
 //--- Cierra parte del frontend ---
 

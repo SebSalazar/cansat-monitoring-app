@@ -1429,6 +1429,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.comMap = com;
         this.puerto1 = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].PUERTO_SERVER;
         this.puerto2 = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].PUERTO_APP;
+        this.host = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].HOST;
       }
 
       _createClass(GraficasComponent, [{
@@ -1737,7 +1738,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this = this;
 
           // Se declara un nuevo Socket donde se le pasa el IP del server y el puerto
-          var socket = new WebSocket("ws://0.0.0.0:".concat(this.puerto1));
+          var socket = new WebSocket("wss://".concat(this.host, ":").concat(this.puerto1));
           this.serverInicio = true; // Se abre el Socket para conectarse al servidor
 
           socket.onopen = function () {
@@ -3420,7 +3421,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var environment = {
       production: false,
       PUERTO_APP: 8081,
-      PUERTO_SERVER: 3000
+      PUERTO_SERVER: 3000,
+      HOST: '0.0.0.0'
     };
     /*
      * For easier debugging in development mode, you can import the following file

@@ -912,6 +912,7 @@ class GraficasComponent {
         this.comMap = com;
         this.puerto1 = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].PUERTO_SERVER;
         this.puerto2 = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].PUERTO_APP;
+        this.host = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].HOST;
     }
     ngOnInit() {
         this.puerto = window.localStorage.getItem('puertoElegido');
@@ -1217,7 +1218,7 @@ class GraficasComponent {
     /* Metodo para conectarse al Servidor por medio del protocolo TCP*/
     ConexionServer() {
         // Se declara un nuevo Socket donde se le pasa el IP del server y el puerto
-        const socket = new WebSocket(`ws://0.0.0.0:${this.puerto1}`);
+        const socket = new WebSocket(`wss://${this.host}:${this.puerto1}`);
         this.serverInicio = true;
         // Se abre el Socket para conectarse al servidor
         socket.onopen = () => {
@@ -2158,7 +2159,8 @@ __webpack_require__.r(__webpack_exports__);
 const environment = {
     production: false,
     PUERTO_APP: 8081,
-    PUERTO_SERVER: 3000
+    PUERTO_SERVER: 3000,
+    HOST: '0.0.0.0'
 };
 /*
  * For easier debugging in development mode, you can import the following file

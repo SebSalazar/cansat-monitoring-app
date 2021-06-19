@@ -1,7 +1,12 @@
+require("dotenv").config();
 const HTTP = require("http");
 const WS = require("websocket").server;
+const express = require("express");
+
+const app = express();
 const log = require("./helpers/csvlog");
 const port = require("./helpers/communication");
+const puerto = process.env.PUERTO;
 
 const server = HTTP.createServer((req, res) => {
   let reqpath = req.url;
@@ -12,9 +17,19 @@ const server = HTTP.createServer((req, res) => {
   console.log(PATH + reqpath);
 });
 
-server.listen(3000, "127.0.0.1", 511, (params) => {
+// --- Servir contenido estatico del front---
+app.use(express.static("public"));
+
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "/public/404.html");
+});
+
+app.listen(puerto);
+// --- Cierra parte del frontend ---
+
+server.listen(3000, (params) => {
   console.log("listening");
-  console.log(params);
+  //console.log(params);
 });
 
 const parseData = (client, clientId, msg) => {
@@ -71,20 +86,20 @@ ws.on("request", (req) => {
 const formatData = (d) => {
   let data = d.split(",");
   let a = {
-    latitude: 0, //falta
-    longitude: 0, //falta
-    Altitude: data[1],
-    falling: 0, //calcular
-    Temperature_1: data[3],
-    Temperature_2: 0, //falta
-    Barometric_Pressure: data[4],
-    pitch: data[5],
-    rueda: data[6],
-    yaw: data[7],
-    Accelerometer_X: data[8],
-    Accelerometer_Y: data[9],
-    Accelerometer_Z: data[10],
-    Speed: data[2], //calcular
+    latitude: `${data[0]}`,
+    longitude: `${data[1]}`,
+    Altitude: `${data[2]}`,
+    falling: `${data[3]}`,
+    Temperature_1: `${data[4]}`,
+    Temperature_2: `${data[5]}`,
+    Barometric_Pressure: `${data[6]}`,
+    pitch: `${data[7]}`,
+    rueda: `${data[8]}`,
+    yaw: `${data[9]}`,
+    Accelerometer_X: `${data[10]}`,
+    Accelerometer_Y: `${data[11]}`,
+    Accelerometer_Z: `${data[12]}`,
+    Speed: `${data[13]}`,
   };
   return JSON.stringify(a);
 };

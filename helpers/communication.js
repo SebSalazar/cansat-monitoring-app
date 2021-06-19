@@ -1,9 +1,14 @@
 const serialPort = require("serialport");
+const fs = require("fs");
+const readline = require("readline");
+
 const log = require("./csvlog");
 
 let portList = [];
 let inUsePort;
 let dummyMode = true;
+const dataPath = "./data/data_simulacion.csv";
+let dataArray = [];
 
 serialPort.list().then((ports) => {
   ports.forEach((port) => {
@@ -11,13 +16,29 @@ serialPort.list().then((ports) => {
   });
 });
 
+const leerData = async () => {
+  if (fs.existsSync(dataPath)) {
+    let read = readline.createInterface({
+      input: fs.createReadStream(dataPath),
+      output: process.stdout,
+      console: false,
+    });
+
+    console.log("...Leyendo la data...");
+    read.on("line", (line) => {
+      dataArray.push(line.split(";"));
+    });
+  }
+};
+
 module.exports = {
+  leerData: leerData(),
   getPorts: portList,
   getPorts: () => {
-    return new Promise ( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       serialPort.list().then((ports) => {
         portList = [];
-        ports.forEach( (port) => {
+        ports.forEach((port) => {
           portList.push(port.path);
         });
         resolve(portList);
@@ -25,16 +46,12 @@ module.exports = {
     });
   },
   setPort: (portName) => {
-    try {
-      inUsePort.close( (err) => console.log("Port closed", err));
-    } catch (error){
-        throw error;
-    }
-    return new Promise(function (resolve, reject) {
+    console.log("Bienvenido: ", portName);
+    return new Promise((resolve, reject) => {
       inUsePort = new serialPort(portName, { baudRate: 9600 }, (err) => {
         if (err) {
-          log.error(err.message);
-          reject(err.message);
+          log.error(err.message, " No hay hardware encontrado");
+          reject("No hay dispositivos conectados, inicia el modo simulación: ");
           dummyMode = true;
         } else {
           dummyMode = false;
@@ -45,24 +62,12 @@ module.exports = {
   },
   port: inUsePort,
   getData: () => {
-    console.log(dummyMode);
+    console.log("Simulacion:\n", dummyMode);
+    //console.log(dataArray);
     if (dummyMode) {
-      let a = [];
-      for (let i = 0; i < 11; ++i) a[i] = i;
-      const shuffle = (array) =>{
-        let tmp,current,top = array.length;
-        if (top)
-          while (--top) {
-            current = Math.floor(Math.random() * (top + 1));
-            tmp = array[current];
-            array[current] = array[top];
-            array[top] = tmp;
-          }
-        return array;
-      }
-      return shuffle(a);
+      return dataArray.shift();
     } else {
-      console.log("inUsePort");
+      console.log("Puerto en uso, modo hardware");
       return inUsePort.read();
     }
   },

@@ -4,12 +4,15 @@
   "description": "Este paquete permite la conexion con dispositivos IoT para la recepción de datos en tiempo real por puerto serial y posterior envio de los datos recogidos por el Cansat o dispositivos de vuelo con IoT en tiempo real y recolectar sus datos por puerto serial cada cierto tiempo para posteriormente enviarlos al cliente a través del un socket desde el servidor",
   "main": "main.js",
   "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
     "serialport": "^9.0.6",
     "websocket": "^1.0.33"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
   },
   "keywords": [
     "cansat"

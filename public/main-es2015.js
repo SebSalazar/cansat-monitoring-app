@@ -2160,7 +2160,7 @@ const environment = {
     production: false,
     PUERTO_APP: 8081,
     PUERTO_SERVER: 3000,
-    HOST: '0.0.0.0'
+    HOST: 'localhost'
 };
 /*
  * For easier debugging in development mode, you can import the following file

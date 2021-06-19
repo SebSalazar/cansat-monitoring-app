@@ -28,6 +28,11 @@ app.get("*", (req, res) => {
 app.listen(puerto, () => {
   console.log("Servidor app esta escuchando");
 });
+
+app.listen(process.env.PUERTO_SERVER || 3000, '0.0.0.0' || '::', err => {
+  if (err) throw err
+  console.log(`server listening on ${app.server.address().port}`)
+})
 //--- Cierra parte del frontend ---
 
 // server.listen(puertoServer, () => {

@@ -25,10 +25,10 @@ app.get("*", (req, res) => {
   res.sendFile(__dirname + "/public/404.html");
 });
 
-app.listen(puerto);
+app.listen((process.env.PUERTO || 8081));
 // --- Cierra parte del frontend ---
 
-server.listen(puertoServer, (params) => {
+server.listen((process.env.PUERTO_SERVER || 3000), (params) => {
   console.log("listening");
   //console.log(params);
 });

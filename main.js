@@ -6,8 +6,8 @@ const express = require("express");
 const app = express();
 const log = require("./helpers/csvlog");
 const port = require("./helpers/communication");
-const puerto = process.env.PUERTO;
-const puertoServer = process.env.PUERTO_SERVER;
+const puerto = process.env.PUERTO || 8080;
+const puertoServer = process.env.PUERTO_SERVER || 3000;
 
 const server = HTTP.createServer((req, res) => {
   let reqpath = req.url;
@@ -25,13 +25,10 @@ app.get("*", (req, res) => {
   res.sendFile(__dirname + "/public/404.html");
 });
 
-app.listen((process.env.PUERTO || 8081));
+app.listen(puerto, "0.0.0.0");
 // --- Cierra parte del frontend ---
 
-server.listen((process.env.PUERTO_SERVER || 3000), (params) => {
-  console.log("listening");
-  //console.log(params);
-});
+server.listen(puertoServer, "0.0.0.0");
 
 const parseData = (client, clientId, msg) => {
   console.log(msg);

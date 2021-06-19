@@ -6,8 +6,8 @@ const express = require("express");
 const app = express();
 const log = require("./helpers/csvlog");
 const port = require("./helpers/communication");
-const puerto = process.env.PUERTO;
-const puertoServer = process.env.PUERTO_SERVER;
+const puerto = process.env.PORT;
+const puertoServer = process.env.PORT_SERVER;
 
 const server = HTTP.createServer((req, res) => {
   let reqpath = req.url;
@@ -18,19 +18,20 @@ const server = HTTP.createServer((req, res) => {
   console.log(PATH + reqpath);
 });
 
-// --- Servir contenido estatico del front---
+//--- Servir contenido estatico del front---
 app.use(express.static("public"));
 
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/public/404.html");
 });
 
-app.listen(puerto);
-// --- Cierra parte del frontend ---
+app.listen(puerto || 5000, () => {
+  console.log("Servidor app esta escuchando");
+});
 
-server.listen(puertoServer, (params) => {
-  console.log("listening");
-  //console.log(params);
+//--- Cierra parte del frontend ---
+server.listen(puertoServer || 3000, () => {
+  console.log("Servidor server esta escuchando");
 });
 
 const parseData = (client, clientId, msg) => {

@@ -17,7 +17,7 @@ serialPort.list().then((ports) => {
   });
 });
 
-const leerData = async () => {
+const leerData = () => {
   if (fs.existsSync(dataPath)) {
     let read = readline.createInterface({
       input: fs.createReadStream(dataPath),

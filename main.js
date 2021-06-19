@@ -6,7 +6,7 @@ const express = require("express");
 const app = express();
 // const log = require("./helpers/csvlog");
 // const port = require("./helpers/communication");
-const puerto = process.env.PUERTO || 8081;
+const puerto = process.env.PORT;
 // const puertoServer = process.env.PUERTO_SERVER || 3000;
 
 // const server = HTTP.createServer((req, res) => {
@@ -25,7 +25,7 @@ app.get("*", (req, res) => {
   res.sendFile(__dirname + "/public/404.html");
 });
 
-app.listen(puerto, () => {
+app.listen(puerto || 5000, () => {
   console.log("Servidor app esta escuchando");
 });
 

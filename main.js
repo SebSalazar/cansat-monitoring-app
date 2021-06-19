@@ -29,9 +29,6 @@ app.listen(puerto, () => {
   console.log("Servidor app esta escuchando");
 });
 
-app.listen(process.env.PUERTO_SERVER || 3000, '0.0.0.0' || '::', err => {
-  console.log("Server escuchando");
-})
 //--- Cierra parte del frontend ---
 
 // server.listen(puertoServer, () => {

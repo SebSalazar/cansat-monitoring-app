@@ -31,7 +31,7 @@ app.listen(puerto || 5000, () => {
 
 //--- Cierra parte del frontend ---
 
-server.listen(puertoServer || 3000, () => {
+server.listen(puertoServer || 3000, "0.0.0.0", () => {
   console.log("Servidor server esta escuchando");
 });
 

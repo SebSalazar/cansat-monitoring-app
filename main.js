@@ -1,22 +1,22 @@
 require("dotenv").config();
-const HTTP = require("http");
-const WS = require("websocket").server;
+// const HTTP = require("http");
+// const WS = require("websocket").server;
 const express = require("express");
 
 const app = express();
-const log = require("./helpers/csvlog");
-const port = require("./helpers/communication");
+// const log = require("./helpers/csvlog");
+// const port = require("./helpers/communication");
 const puerto = process.env.PUERTO || 8081;
-const puertoServer = process.env.PUERTO_SERVER || 3000;
+// const puertoServer = process.env.PUERTO_SERVER || 3000;
 
-const server = HTTP.createServer((req, res) => {
-  let reqpath = req.url;
+// const server = HTTP.createServer((req, res) => {
+//   let reqpath = req.url;
 
-  if (RDI.hasOwnProperty(reqpath)) {
-    reqpath = RDI[reqpath];
-  }
-  console.log(PATH + reqpath);
-});
+//   if (RDI.hasOwnProperty(reqpath)) {
+//     reqpath = RDI[reqpath];
+//   }
+//   console.log(PATH + reqpath);
+// });
 
 // --- Servir contenido estatico del front---
 app.use(express.static("public"));
@@ -30,9 +30,9 @@ app.listen(puerto, () => {
 });
 //--- Cierra parte del frontend ---
 
-server.listen(puertoServer, () => {
-  console.log("Servidor server esta escuchando");
-});
+// server.listen(puertoServer, () => {
+//   console.log("Servidor server esta escuchando");
+// });
 
 // const parseData = (client, clientId, msg) => {
 //   console.log(msg);

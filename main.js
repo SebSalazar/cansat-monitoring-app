@@ -1,46 +1,20 @@
 require("dotenv").config();
-const HTTP = require("http");
-const WS = require("websocket").server;
 const express = require("express");
 
-const app = express();
 const log = require("./helpers/csvlog");
 const port = require("./helpers/communication");
-const puerto = process.env.PORT;
-const puertoServer = process.env.PORT_SERVER;
+
 const PORT = process.env.PORT || 3000;
 
 const server = express()
   .use(express.static("public"))
+  .get("*", (req, res) => {
+    res.sendFile(__dirname + "/public/404.html");
+  })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const { Server } = require("ws");
 const wss = new Server({ server });
-
-// const server = HTTP.createServer((req, res) => {
-//   let reqpath = req.url;
-
-//   if (RDI.hasOwnProperty(reqpath)) {
-//     reqpath = RDI[reqpath];
-//   }
-//   console.log(PATH + reqpath);
-// });
-
-//--- Servir contenido estatico del front---
-// app.use(express.static("public"));
-
-// server.get("*", (req, res) => {
-//   res.sendFile(__dirname + "/public/404.html");
-// });
-
-// app.listen(puerto || 5000, () => {
-//   console.log("Servidor app esta escuchando");
-// });
-
-//--- Cierra parte del frontend ---
-// server.listen(puertoServer || 3000, () => {
-//   console.log("Servidor server esta escuchando");
-// });
 
 const parseData = (client, clientId, msg) => {
   console.log(msg);
@@ -119,12 +93,12 @@ const wsSendAll = () => {
       console.log(data);
       dataarray = formatData(data);
       log.save(data);
-      // console.log("Hola: ", dataarray);
-      setInterval(() => {
+      // console.log("Data: ", dataarray);
+      setTimeout(() => {
         wss.clients.forEach((client) => {
           client.send(dataarray);
         });
-      }, 1000);
+      }, 500);
     }
     setTimeout(wsSendAll, 500);
   } catch (e) {

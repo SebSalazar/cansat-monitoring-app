@@ -1218,7 +1218,7 @@ class GraficasComponent {
     /* Metodo para conectarse al Servidor por medio del protocolo TCP*/
     ConexionServer() {
         // Se declara un nuevo Socket donde se le pasa el IP del server y el puerto
-        let HOST = location.origin.replace(/^http/, 'ws');
+        const HOST = location.origin.replace(/^http/, 'ws');
         const socket = new WebSocket(HOST);
         this.serverInicio = true;
         // Se abre el Socket para conectarse al servidor
@@ -1228,6 +1228,7 @@ class GraficasComponent {
         };
         // Evento que me retorna la informacion del servidor
         socket.onmessage = (event) => {
+            console.log(event.data);
             const data = JSON.parse(event.data);
             console.log(data);
             this.altitud = data.Altitude;

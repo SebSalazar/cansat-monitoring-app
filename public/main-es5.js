@@ -1749,6 +1749,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
           socket.onmessage = function (event) {
+            console.log(event.data);
             var data = JSON.parse(event.data);
             console.log(data);
             _this.altitud = data.Altitude;

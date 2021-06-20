@@ -1218,7 +1218,7 @@ class GraficasComponent {
     /* Metodo para conectarse al Servidor por medio del protocolo TCP*/
     ConexionServer() {
         // Se declara un nuevo Socket donde se le pasa el IP del server y el puerto
-        const socket = new WebSocket('wss://cansatmonitoring.herokuapp.com/graphics:' + this.puerto1);
+        const socket = new WebSocket('wss://cansatmonitoring.herokuapp.com/:' + this.puerto1);
         this.serverInicio = true;
         // Se abre el Socket para conectarse al servidor
         socket.onopen = () => {

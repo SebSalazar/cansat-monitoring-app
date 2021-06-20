@@ -67,7 +67,7 @@ module.exports = {
     console.log("Simulacion:\n", dummyMode);
     //console.log(dataArray);
     if (dummyMode) {
-      if(dataArray.length === 0 || dataArray.length === undefined) dataArray = dataArrayAux;
+      if(dataArray.length === 0 || dataArray.length === undefined) leerData();
       return dataArray.shift();
     } else {
       console.log("Puerto en uso, modo hardware");

@@ -1,6 +1,8 @@
-# Cansat-Node-Server:
+# Cansat-Monitoring-App
 
-Uso de Node para capturar por puerto serial los datos recogidos por un sistema tipo cansat, algunos de estos datos que se tomaran en tiempo real son  *(Temperatura, localización, altitud, presión, datos de giroscopio (X,Y,Z), aceleración en los tres ejes, entre otros)* ; luego se hace la limpieza y organización de estos datos, para luego enviarlos al cliente por Sockets y mostrarlos en un dashboard del aplicativo web construido en Angular.
+Aplicación terminada para el monitoreo en tiempo real de dispositivos de vuelo tipo cansat, la app hace uso de Node para capturar por puerto serial los datos recogidos por un sistema tipo cansat, algunos de estos datos que se tomaran en tiempo real son  *(Temperatura, localización, altitud, presión, datos de giroscopio (X,Y,Z), aceleración en los tres ejes, entre otros)* ; luego se hace la limpieza y organización de estos datos, para luego enviarlos al cliente por Sockets y mostrarlos en un dashboard del aplicativo web construido en Angular.
+
+Esta aplicación esta hecha principalmente en **(NodeJs - Backend)**, **(Angular - Frontend)** y usando paquetes importantes para el desarrollo como lo son: **(Express, Websocket, dotenv)** entre otros para el back y paquetes y consumo de APIs para el front como: **(chart.js, leaflet, ngx, etc)**
 
 ### Como ejecutar el software
  1. Descargue o clone el proyecto su PC

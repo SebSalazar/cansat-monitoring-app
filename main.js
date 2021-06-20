@@ -8,31 +8,39 @@ const log = require("./helpers/csvlog");
 const port = require("./helpers/communication");
 const puerto = process.env.PORT;
 const puertoServer = process.env.PORT_SERVER;
+const PORT = process.env.PORT || 3000;
 
-const server = HTTP.createServer((req, res) => {
-  let reqpath = req.url;
+const server = express()
+  .use(express.static("public"))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-  if (RDI.hasOwnProperty(reqpath)) {
-    reqpath = RDI[reqpath];
-  }
-  console.log(PATH + reqpath);
-});
+const { Server } = require("ws");
+const wss = new Server({ server });
+
+// const server = HTTP.createServer((req, res) => {
+//   let reqpath = req.url;
+
+//   if (RDI.hasOwnProperty(reqpath)) {
+//     reqpath = RDI[reqpath];
+//   }
+//   console.log(PATH + reqpath);
+// });
 
 //--- Servir contenido estatico del front---
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
-app.get("*", (req, res) => {
-  res.sendFile(__dirname + "/public/404.html");
-});
+// server.get("*", (req, res) => {
+//   res.sendFile(__dirname + "/public/404.html");
+// });
 
-app.listen(puerto || 5000, () => {
-  console.log("Servidor app esta escuchando");
-});
+// app.listen(puerto || 5000, () => {
+//   console.log("Servidor app esta escuchando");
+// });
 
 //--- Cierra parte del frontend ---
-server.listen(puertoServer || 3000, () => {
-  console.log("Servidor server esta escuchando");
-});
+// server.listen(puertoServer || 3000, () => {
+//   console.log("Servidor server esta escuchando");
+// });
 
 const parseData = (client, clientId, msg) => {
   console.log(msg);
@@ -54,12 +62,8 @@ const parseData = (client, clientId, msg) => {
   }
 };
 
-const ws = new WS({
-  httpServer: server,
-});
-
 let uid = 0;
-ws.on("request", (req) => {
+wss.on("request", (req) => {
   const client = req.accept(null, req.origin);
   const clientId = uid++;
 
@@ -115,9 +119,12 @@ const wsSendAll = () => {
       console.log(data);
       dataarray = formatData(data);
       log.save(data);
-      for (const connection of ws.connections) {
-        connection.send(dataarray);
-      }
+      // console.log("Hola: ", dataarray);
+      setInterval(() => {
+        wss.clients.forEach((client) => {
+          client.send(dataarray);
+        });
+      }, 1000);
     }
     setTimeout(wsSendAll, 500);
   } catch (e) {

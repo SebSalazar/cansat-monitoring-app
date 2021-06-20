@@ -1738,7 +1738,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           var _this = this;
 
           // Se declara un nuevo Socket donde se le pasa el IP del server y el puerto
-          var socket = new WebSocket('wss://cansatmonitoring.herokuapp.com:35592');
+          var HOST = location.origin.replace(/^http/, 'ws');
+          var socket = new WebSocket(HOST);
           this.serverInicio = true; // Se abre el Socket para conectarse al servidor
 
           socket.onopen = function () {
